@@ -18,7 +18,7 @@ class CreateBlogkeywordsTable extends Migration
             $table->integer('BlogID')->unsigned();
             $table->foreign('BlogID')->references('blogid')->on('blog');
             $table->string('KeywordName');
-            $table->string('Status');
+            $table->string('Status')->default(1);
         });
     }
 
