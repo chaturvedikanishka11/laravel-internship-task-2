@@ -19,8 +19,8 @@ class CreateBlogsTable extends Migration
             $table->foreign('BlogCategoryID')->references('categoryid')->on('blogcategory');
             $table->string('Name');
             $table->string('SubName');
-            $table->string('BannerImage');
-            $table->string('MainImage');
+            $table->string('BannerImage')->nullable();
+            $table->string('MainImage')->nullable();
             $table->string('Description');
             $table->string('Status')->default(1);
             $table->timestamps();

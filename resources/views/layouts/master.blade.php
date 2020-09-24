@@ -8,12 +8,17 @@
 
 <head>
 
-    <script src="https://cdn.tiny.cloud/1/lw0q03z6xj6ymm37c25kwz2py7qcxi71rz8qak18786lfxbc/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+   <!--  <script src="https://cdn.tiny.cloud/1/lw0q03z6xj6ymm37c25kwz2py7qcxi71rz8qak18786lfxbc/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
         selector: '#mytextarea'
       });
-    </script>
+    </script> -->
+  <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> <script type="text/javascript">
+//<![CDATA[
+        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+  //]]>
+  </script>
 
 
     <meta charset="utf-8">

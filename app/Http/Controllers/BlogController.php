@@ -20,42 +20,26 @@ class BlogController extends Controller
     		$blog->Name = $data['Name'];
     		$blog->SubName = $data['SubName'];
     		$blog->Description = $data['Description'];
+            // dd($blog->blogid);
 
-    		if($request->hasfile('BannerImage'))
-    		{
-    			echo $main_img_tmp = Input::file('BannerImage');
-    			if($main_img_tmp->isValid())
-    			{
-
-                    $file = $request->file('BannerImage');
-    	            $filename = 'BannerImage'.time().'.'.$request->BannerImage->extension();
-    	            $file->move('upload/bannerimage',$filename);
-
-    			   $blog->BannerImage = $filename;
-    		}
-            }
-            else
-            {
-            	$blog->BannerImage = " "; 
-            }
-
-            if($request->hasfile('MainImage'))
-    		{
-    			echo $main_img_tmp = Input::file('MainImage');
-    			if($main_img_tmp->isValid())
-    			{
-
-                    $image = $request->file('MainImage');
-    	            $imagename = 'MainImage'.time().'.'.$request->MainImage->extension();
-    	            $image->move('upload/mainimage',$imagename);
-
-    			   $blog->MainImage = $imagename;
-    		}
-            }
-            else
-            {
-            	$blog->MainImage = " "; 
-            }
+    		//MAIN IMAGE STORE
+            $url="http://127.0.0.1:8000/storage/";
+            $file = $request->file('MainImage');
+            $extension=$file->getClientOriginalExtension();
+            $mainimgpath=$request->file('MainImage')->storeAs('blogs','MainImage' .time().'.'.
+            $request->MainImage->extension());
+            
+            $blog->MainImage = $url.$mainimgpath;
+             
+            
+            //BANNER IAMGE STORE
+            $url="http://127.0.0.1:8000/storage/";
+            $image = $request->file('BannerImage');
+                 
+            $extension=$file->getClientOriginalExtension();
+            $bannerimgpath=$request->file('BannerImage')->storeAs('blogs','BannerImage' .time().'.'.
+            $request->BannerImage->extension());
+            $blog->BannerImage = $url.$bannerimgpath;
 
     		$blog->save();
     		return redirect('addblog')->with('flash_message_success','blogs added successfully!!');
@@ -86,21 +70,25 @@ class BlogController extends Controller
      
         $blogs = $request->all();
 
+         global $Bannerimage;
+         global $Mainimage;
+
         if($request->hasfile('BannerImage'))
             {
                 echo $main_img_tmp = Input::file('BannerImage');
                 if($main_img_tmp->isValid())
                 {
 
+                    $url="http://127.0.0.1:8000/storage/";
                     $file = $request->file('BannerImage');
-                    $filename = 'BannerImage'.time().'.'.$request->BannerImage->extension();
-                    $file->move('upload/bannerimage',$filename);
-
-                   $blogs->BannerImage = $filename;
+                         
+                    $extension=$file->getClientOriginalExtension();
+                    $bannerimgpath=$request->file('BannerImage')->storeAs('blogs','BannerImage' .time().'.'.$request->BannerImage->extension());
+                    $BannerImage = $url.$bannerimgpath;
             }
             }
            else{
-                $filename = $blogs['current_BannerImage'];
+                $BannerImage = $blogs['current_BannerImage'];
             }
 
          if($request->hasfile('MainImage'))
@@ -109,22 +97,24 @@ class BlogController extends Controller
                 if($main_img_tmp->isValid())
                 {
 
-                    $image = $request->file('MainImage');
-                    $imagename = 'MainImage'.time().'.'.$request->MainImage->extension();
-                    $image->move('upload/mainimage',$imagename);
-
-                   $blogs->MainImage = $imagename;
+                   $url="http://127.0.0.1:8000/storage/";
+                   $file = $request->file('MainImage');
+                   $extension=$file->getClientOriginalExtension();
+                   $mainimgpath=$request->file('MainImage')->storeAs('blogs','MainImage' .time().'.'.
+                   $request->MainImage->extension());
+                   
+                   $MainImage = $url.$mainimgpath;
             }
             }  
             else{
-                $imagename = $blogs['current_main_image'];
+                $MainImage = $blogs['current_main_image'];
             } 
 
 
             if(empty($blogs['Description'])){
                 $blogs['Description'] = '';
             }
-            blog::where(['blogid'=>$id])->update(['BlogCategoryID'=>$blogs['BlogCategoryID'],'Name'=>$blogs['Name'],'SubName'=>$blogs['SubName'],'Description'=>$blogs['Description'],'BannerImage'=>$filename,'MainImage'=>$imagename]);
+            blog::where(['blogid'=>$id])->update(['BlogCategoryID'=>$blogs['BlogCategoryID'],'Name'=>$blogs['Name'],'SubName'=>$blogs['SubName'],'Description'=>$blogs['Description'],'BannerImage'=>$BannerImage,'MainImage'=>$MainImage]);
 
 
           return redirect('viewblog')->with('flash_message_success','blogs has been updated!!');

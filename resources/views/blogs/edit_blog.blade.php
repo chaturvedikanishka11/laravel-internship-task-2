@@ -41,7 +41,7 @@
     <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Banner Image</label></div>
     <div class="col-12 col-md-9"><input type="file" id="BannerImage" name="BannerImage" placeholder="" class="form-control">
     <input type="hidden" name="current_BannerImage" value="{{$blogs->BannerImage}}">@if(!empty($blogs->BannerImage))
-    <img src="{{asset('/upload/bannerimage/'.$blogs->BannerImage)}}" alt="" style="width:100px;">
+    <img src="{{$blogs->BannerImage}}" alt="" style="width:100px;">
     @endif
 
     </div>
@@ -51,7 +51,7 @@
     <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Main Image</label></div>
     <div class="col-12 col-md-9"><input type="file" id="MainImage" name="MainImage" placeholder="MainImage" class="form-control">
     <input type="hidden" name="current_main_image" value="{{$blogs->MainImage}}">@if(!empty($blogs->MainImage))
-    <img src="{{asset('/upload/mainimage/'.$blogs->MainImage)}}" alt="" style="width:100px;">
+    <img src="{{$blogs->MainImage}}" alt="" style="width:100px;">
     @endif
 
     </div>

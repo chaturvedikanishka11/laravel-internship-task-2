@@ -51,13 +51,13 @@
                                             <td>{{$blogs->SubName}}</td>
                                             <td>
                                              @if(!empty($blogs->BannerImage))
-                                             <img src="{{asset('/upload/bannerimage/'.$blogs->BannerImage)}}" alt="" style="width:100px;">
+                                             <img src="{{$blogs->BannerImage}}" alt="" style="width:100px;">
                                             </td>
                                              @endif
                                              
                                              <td>
                                              @if(!empty($blogs->MainImage))
-                                             <img src="{{asset('/upload/mainimage/'.$blogs->MainImage)}}" alt="" style="width:100px;">
+                                             <img src="{{$blogs->MainImage}}" alt="" style="width:100px;">
                                             </td>
                                              @endif
                                     
